@@ -1,4 +1,4 @@
-FROM docker.io/bitnami/minideb:bullseye
+FROM  ubuntu:22.10
 ENV HOME="/" \
     OS_ARCH="amd64" \
     OS_FLAVOUR="debian-11" \
@@ -17,6 +17,9 @@ RUN . /opt/bitnami/scripts/libcomponent.sh && component_unpack "spark" "3.2.2-0"
 RUN . /opt/bitnami/scripts/libcomponent.sh && component_unpack "gosu" "1.14.0-152" --checksum 0c751c7e2ec0bc900a19dbec0306d6294fe744ddfb0fa64197ba1a36040092f0
 RUN apt-get update && apt-get upgrade -y && \
     rm -r /var/lib/apt/lists /var/cache/apt/archives
+RUN apt-get install wget
+RUN wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && dpkg -i packages-microsoft-prod.deb
+RUN apt-get update && apt-get install -y apt-transport-https && apt-get update && apt-get install -y dotnet-sdk-6.0
 RUN chmod g+rwX /opt/bitnami
 RUN chown -R 1001:1001 /opt/bitnami/spark
 

@@ -2,6 +2,7 @@
 #
 # Library for managing Bitnami components
 
+set -x
 # Constants
 CACHE_ROOT="/tmp/bitnami/pkg/cache"
 DOWNLOAD_URL="https://downloads.bitnami.com/files/stacksmith"
